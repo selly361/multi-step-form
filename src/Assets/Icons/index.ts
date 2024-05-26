@@ -1,0 +1,5 @@
+export { ReactComponent as AdvancedIcon } from './icon-advanced.svg'
+export { ReactComponent as ArcadeIcon } from './icon-arcade.svg'
+export { ReactComponent as CheckmarkIcon } from './icon-checkmark.svg'
+export { ReactComponent as ProIcon } from './icon-pro.svg'
+export { ReactComponent as ThankIcon } from './icon-thank-you.svg'
