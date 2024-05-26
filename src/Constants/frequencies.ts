@@ -1,0 +1,4 @@
+const FREQUENCY_MONTHLY = 'Monthly'
+const FREQUENCY_YEARLY = 'Yearly'
+
+export { FREQUENCY_MONTHLY, FREQUENCY_YEARLY }
