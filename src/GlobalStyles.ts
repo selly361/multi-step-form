@@ -14,6 +14,30 @@ html:focus-within {
     scroll-behavior: smooth;
 }
 
+body {
+    height: 100vh;
+    background: #EFF5FF;
+    color: #022959;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 37px;
+}
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #9699AA;
+}
+
 ul,
 ol {
     list-style: none;
