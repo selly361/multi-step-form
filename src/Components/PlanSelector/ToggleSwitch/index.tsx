@@ -31,7 +31,8 @@ const ToggleSwitch = ({ setFrequency, frequency }: IToggleSwitchProps) => {
 				id='toggle-switch'
 				checked={isYearly}
 				onChange={handleSetFrequency}
-			/>
+				tabIndex={-1}
+				/>
 			<Switch
 				role='switch'
 				aria-checked={isYearly}
