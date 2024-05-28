@@ -35,6 +35,11 @@ const Switch = styled.div`
 	cursor: pointer;
 	transition: background-color 0.2s;
     padding: 4px;
+
+	&:focus-visible {
+		outline: 2px dashed #483EFF;
+		outline-offset: 3px;
+	}
 `
 
 const Knob = styled.div<KnobProps>`
