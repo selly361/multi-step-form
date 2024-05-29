@@ -3,26 +3,27 @@ import { useFormContext, FieldError, FieldErrorsImpl, Merge } from 'react-hook-f
 import { StyledForm, StyledFieldset, StyledLabelContainer, StyledLabel, ErrorText, StyledInput } from './PersonalInfo.styles'
 import { PersonalInfoData } from 'Types'
 
-interface IPersonalInfoProps {
+interface PersonalInfoProps {
     handleFormDataChange: (data: PersonalInfoData) => void
 }
 
-type PersonalInfoErrors = {
-    personalInfo?: {
-        name?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>,
-        email?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>,
-        phoneNumber?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+
+interface FormValues {
+    personalInfo: {
+        name: string;
+        email: string;
+        phoneNumber: string;
     }
 }
 
-function PersonalInfo({ handleFormDataChange }: IPersonalInfoProps) {
-    const { register, formState: { errors }, watch } = useFormContext<PersonalInfoErrors>()
+function PersonalInfo({ handleFormDataChange }: PersonalInfoProps) {
+    const { register, formState: { errors }, watch } = useFormContext<FormValues>()
 
     const formData = watch("personalInfo")
 
     useEffect(() => {
         handleFormDataChange(formData)
-    }, [formData, handleFormDataChange])
+    }, [])
 
     return (
         <StyledForm>

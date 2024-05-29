@@ -1,17 +1,23 @@
-import { Container, PlanContainer} from './PlanSelector.styles'
+import React from 'react'
+import { useFormContext } from 'react-hook-form'
+import { Container, PlanContainer } from './PlanSelector.styles'
 import PlanCard from './PlanCard'
 import { plans } from 'Constants'
-import { Plan } from 'Types'
+import { PlanName, FormData } from 'Types'
 import ToggleSwitch from './ToggleSwitch'
 
-interface IPlanSelectorProps {
-	selectedPlan: Plan
-	handleFormDataChange: (data: Plan) => void
+interface PlanSelectorProps {
 	frequency: 'yearly' | 'monthly'
 	setFrequency: (frequency: 'yearly' | 'monthly') => void
 }
 
-const PlanSelector = ({ selectedPlan, handleFormDataChange, frequency, setFrequency }: IPlanSelectorProps) => {
+const PlanSelector: React.FC<PlanSelectorProps> = ({ frequency, setFrequency }) => {
+	const { watch, setValue } = useFormContext<FormData>()
+	const selectedPlan = watch('selectedPlan')
+
+	const handlePlanChange = (plan: PlanName) => {
+		setValue('selectedPlan', plan)
+	}
 
 	return (
 		<Container>
@@ -20,8 +26,8 @@ const PlanSelector = ({ selectedPlan, handleFormDataChange, frequency, setFreque
 					<PlanCard
 						key={plan.plan}
 						plan={plan}
-						isSelected={selectedPlan?.plan === plan.plan}
-						onSelect={() => handleFormDataChange(plan)}
+						isSelected={selectedPlan === plan.plan}
+						handleFormDataChange={handlePlanChange}
 					/>
 				))}
 			</PlanContainer>
