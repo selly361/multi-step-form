@@ -1,10 +1,10 @@
-import { AddOn, PersonalInfoData, Plan } from "Types"
+import { AddOn, PersonalInfoData, PlanName } from "Types"
 
 
 
 
 export interface FormData {
     personalInfo: PersonalInfoData
-    selectedPlan: Plan
+    selectedPlan: PlanName
     addOns: AddOn[]
 }
