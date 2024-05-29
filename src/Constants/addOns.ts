@@ -1,7 +1,7 @@
 import { AddOn } from 'Types'
 import { FREQUENCY_MONTHLY, FREQUENCY_YEARLY } from './frequencies'
 
-const monthlyAddOns: AddOn[] = [
+const addOns: AddOn[] = [
 	{
 		title: 'Online service',
 		description: 'Access to multiplayer games',
@@ -25,15 +25,20 @@ const monthlyAddOns: AddOn[] = [
 	}
 ]
 
-const yearlyAddOns: AddOn[] = monthlyAddOns.map((addOn) => ({
-	...addOn,
-	frequency: FREQUENCY_YEARLY,
-	price: addOn.price * 10
-}))
-
-const addOns = {
-	yearly: yearlyAddOns,
-	monthly: monthlyAddOns
+function toYearlyAddOns(addOns: AddOn[]): AddOn[] {
+	return addOns.map((addOn) => ({
+		...addOn,
+		frequency: FREQUENCY_YEARLY,
+		price: addOn.price * 10
+	}))
 }
 
-export { addOns }
+function toMonthlyAddOns(addOns: AddOn[]): AddOn[] {
+	return addOns.map((addOn) => ({
+		...addOn,
+		frequency: FREQUENCY_MONTHLY,
+		price: addOn.price / 10
+	}))
+}
+
+export { addOns, toYearlyAddOns, toMonthlyAddOns }
