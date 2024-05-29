@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { AddOn } from 'Types'
-import { addOns } from 'Constants'
 import {
 	AddOnContainer,
 	AddOnItem,
@@ -12,35 +11,39 @@ import {
 	AddOnPrice
 } from './AddOns.styles'
 import { useKeyboardNavigation } from 'Hooks'
+import { useFormContext } from 'react-hook-form'
 
 interface AddOnsProps {
 	frequency: 'monthly' | 'yearly'
-	addOns: AddOn[]
 	handleFormDataChange: (data: AddOn[]) => void
 }
 
-const AddOns = ({ frequency }: AddOnsProps) => {
-	const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>(addOns[frequency])
+interface FormValues {
+	addOns: AddOn[]
+}
+
+const AddOns: React.FC<AddOnsProps> = ({ frequency, handleFormDataChange }) => {
+	const { watch } = useFormContext<FormValues>()
+	const addOns = watch('addOns')
 
 	const handleToggle = (index: number) => {
-		const updatedAddOns = [...selectedAddOns]
+		const updatedAddOns = [...addOns]
 		updatedAddOns[index].checked = !updatedAddOns[index].checked
-		setSelectedAddOns(updatedAddOns)
+		handleFormDataChange(updatedAddOns)
 	}
 
 	const { elementsRef, handleKeyDown } = useKeyboardNavigation()
 
-
 	return (
 		<AddOnContainer>
-			{selectedAddOns.map((addOn, index) => (
+			{addOns.map((addOn, index) => (
 				<AddOnItem
 					key={index}
 					checked={addOn.checked}
 					htmlFor={`addon-${index}`}
 					onKeyDown={(e) => {
 						handleKeyDown(e, index)
-						if(e.key === 'Enter') handleToggle(index)
+						if (e.key === 'Enter') handleToggle(index)
 					}}
 				>
 					<Checkbox
@@ -55,7 +58,7 @@ const AddOns = ({ frequency }: AddOnsProps) => {
 						<AddOnDescription>{addOn.description}</AddOnDescription>
 					</AddOnDetails>
 					<AddOnPrice>
-						+${addOn.price}/{addOn.frequency === 'yearly' ? 'yr' : 'mo'}
+						+${addOn.price}/{frequency === 'yearly' ? 'yr' : 'mo'}
 					</AddOnPrice>
 				</AddOnItem>
 			))}
