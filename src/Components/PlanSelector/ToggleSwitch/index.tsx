@@ -1,13 +1,13 @@
 import { useState, KeyboardEvent } from 'react'
 import { ToggleSwitchContainer, Label, Switch, Knob, HiddenCheckbox } from './ToggleSwitch.styles'
 
-interface IToggleSwitchProps {
+interface ToggleSwitchProps {
 	setFrequency: (frequency: 'yearly' | 'monthly') => void
 	frequency: 'yearly' | 'monthly'
 }
 
 
-const ToggleSwitch = ({ setFrequency, frequency }: IToggleSwitchProps) => {
+const ToggleSwitch = ({ setFrequency, frequency }: ToggleSwitchProps) => {
 
 	const handleSetFrequency = () => setFrequency(frequency === 'yearly' ? 'monthly' : 'yearly')
 
