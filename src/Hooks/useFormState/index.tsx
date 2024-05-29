@@ -1,25 +1,32 @@
-import { useState, useCallback } from 'react'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { useState, useCallback, useEffect, useRef } from 'react'
+import { useForm, UseFormReturn } from 'react-hook-form'
 import { FormData } from 'Types'
-import { addOns, plans } from 'Constants'
+import { addOns } from 'Constants'
+import { toMonthlyAddOns, toYearlyAddOns } from 'Constants/addOns'
 
 const useFormState = () => {
 	const [currentStep, setCurrentStep] = useState<number>(1)
-	const [frequency, setFrequency] = useState<'monthly' | 'yearly'>('monthly')
+	const [frequency, setFrequency] = useState<'monthly' | 'yearly'>('yearly')
+	const [completed, setCompleted] = useState(false)
+	const isFirstRender = useRef(true) 
 
 	const methods = useForm<FormData>({
 		defaultValues: {
 			personalInfo: { name: '', email: '', phoneNumber: '' },
-			selectedPlan: plans[frequency][0],
-			addOns: addOns[frequency]
+			selectedPlan: 'Arcade',
+			addOns: addOns
 		}
 	})
 
 	const handleNextStep = useCallback(() => {
+		if(currentStep === 4){
+			setCompleted(e => true)
+		}
+
 		methods.handleSubmit(() => {
 			setCurrentStep((prevStep) => Math.min(prevStep + 1, 4))
 		})()
-	}, [methods])
+	}, [methods, currentStep])
 
 	const handlePreviousStep = useCallback(() => {
 		setCurrentStep((prevStep) => Math.max(prevStep - 1, 1))
@@ -32,6 +39,25 @@ const useFormState = () => {
 		[methods]
 	)
 
+	useEffect(() => {
+		if (!isFirstRender.current) {
+			console.log('RE-RENDERED')
+			if (frequency === 'yearly') {
+				handleFormDataChange(
+					'addOns',
+					toYearlyAddOns(methods.getValues('addOns'))
+				)
+			} else {
+				handleFormDataChange(
+					'addOns',
+					toMonthlyAddOns(methods.getValues('addOns'))
+				)
+			}
+		} else {
+			isFirstRender.current = false
+		}
+	}, [frequency])
+
 	return {
 		currentStep,
 		frequency,
@@ -39,7 +65,9 @@ const useFormState = () => {
 		handleNextStep,
 		handlePreviousStep,
 		handleFormDataChange,
-		methods
+		methods,
+		setCurrentStep,
+		completed
 	}
 }
 
