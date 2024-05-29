@@ -1,5 +1,7 @@
+export type PlanName = 'Arcade' | 'Advanced' | 'Pro'
+
 export interface Plan {
-    plan: string;
+    plan: PlanName;
     frequency: string;
     icon: JSX.Element;
     price: number;
