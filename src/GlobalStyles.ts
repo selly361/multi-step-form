@@ -14,6 +14,14 @@ html:focus-within {
     scroll-behavior: smooth;
 }
 
+div#root {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
 body {
     height: 100vh;
     background: #EFF5FF;
@@ -23,6 +31,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 900px) {
+        position: relative;
+        display: initial;
+    }
 }
 
 h2 {

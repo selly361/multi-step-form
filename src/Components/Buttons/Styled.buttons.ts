@@ -8,6 +8,18 @@ const StyledFieldset = styled.fieldset`
     align-items: center;
     position: absolute;
     bottom: 16px;
+
+
+	@media (max-width: 900px) {
+		height: 72px;
+		position: fixed;
+		padding: 16px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 100vw;
+		background-color: white;
+	}
 `
 
 const NextStepButton = styled.button`

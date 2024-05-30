@@ -11,6 +11,20 @@ const StyledMain = styled.main`
 
 	display: flex;
 	justify-content: space-between;
+
+	@media (min-width: 900px) and (max-width: 1168px) {
+		width: 100vw;
+		height: 100vh;
+	}
+
+
+	@media (max-width: 900px) {
+		height: max-content;
+		max-width: 500px;
+		margin: auto;
+		padding: 32px 24px;
+		margin-top: 100px;
+	}
 `
 
 const Container = styled.div`
@@ -19,6 +33,11 @@ const Container = styled.div`
 	padding: 40px 0 16px 0;
     position: relative;
 
+	@media (max-width: 900px) {
+		position: static;
+		padding: 0;
+		width: 100%;
+	}
 `
 
 const Title = styled.h2``
